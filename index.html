@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Partidas Rankeadas</title>
+    <script>
+        // Função para calcular o saldo de ranqueadas e determinar o nível
+        function calcularNivel(vitorias, derrotas) {
+            // Calculo do saldo
+            const saldoVitorias = vitorias - derrotas;
+            // Retorna o saldo de vitórias
+            return saldoVitorias;
+        }
+
+        // Determinação do nível baseado na quantidade de vitórias
+        function getValorantRanking(nome, experiencia) {
+            let ranking;
+
+            if (experiencia <= 1000) {
+                ranking = "Ferro";
+            } else if (experiencia <= 2000) {
+                ranking = "Bronze";
+            } else if (experiencia <= 3000) {
+                ranking = "Prata";
+            } else if (experiencia <= 4000) {
+                ranking = "Ouro";
+            } else if (experiencia <= 5000) {
+                ranking = "Platina";
+            } else if (experiencia <= 6000) {
+                ranking = "Diamante";
+            } else if (experiencia <= 7000) {
+                ranking = "Ascendente";
+            } else if (experiencia <= 8000) {
+                ranking = "Imortal";
+            } else if (experiencia <= 10000) {
+                ranking = "Radiante";
+            } else {
+                ranking = "Inválido";
+            }
+
+            // Retorna o nome, saldo de vitórias e o ranking
+            return {
+                nome: nome,
+                saldoVitorias: experiencia,
+                ranking: ranking
+            };
+        }
+
+        // Função para pegar os dados do formulário e calcular o ranking
+        function calcularRanking() {
+            const nome = document.getElementById("nome").value;
+            const vitorias = parseInt(document.getElementById("vitorias").value);
+            const derrotas = parseInt(document.getElementById("derrotas").value);
+
+            const experiencia = calcularNivel(vitorias, derrotas);
+            const resultado = getValorantRanking(nome, experiencia);
+
+            document.getElementById("resultado").innerText =
+                `Jogador: ${resultado.nome}, Saldo de Vitórias: ${resultado.saldoVitorias}, Ranking: ${resultado.ranking}`;
+        }
+    </script>
+</head>
+<body>
+    <h1>Calculadora de Partidas Rankeadas</h1>
+    <form onsubmit="calcularRanking(); return false;">
+        <label for="nome">Nome do Jogador:</label>
+        <input type="text" id="nome" name="nome" required>
+        <br>
+        <label for="vitorias">Vitórias:</label>
+        <input type="number" id="vitorias" name="vitorias" required>
+        <br>
+        <label for="derrotas">Derrotas:</label>
+        <input type="number" id="derrotas" name="derrotas" required>
+        <br>
+        <button type="submit">Calcular Ranking</button>
+    </form>
+    <p id="resultado"></p>
+</body>
+</html>
+
